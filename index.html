@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>رسالة حب إلى زوجتي الغالية رهف ❤️ | Hello Kitty Love</title>
+    <title>رسالة حب إلى زوجتي الغالية رهف ❤️ </title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cairo & Tajawal -->
@@ -93,6 +93,17 @@
         .envelope.open .envelope-flap {
             transform: rotateX(180deg);
             z-index: 1;
+        }
+
+        /* Hide the seal bow gracefully when envelope is opened */
+        #envelope-seal {
+            transition: all 0.4s ease;
+        }
+
+        .envelope.open #envelope-seal {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.5);
         }
 
         .letter-content {
