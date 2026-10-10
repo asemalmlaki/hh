@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>رسالة حب إلى زوجتي الغالية رهف ❤️ | Hello Kitty Love</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #ffe4e8 0%, #ffc0cb 40%, #ffb6c1 70%, #ffa8be 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Hello Kitty Pink Glassmorphism */
+        .kitty-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 3px solid #ffb3c6;
+            box-shadow: 0 12px 32px rgba(255, 105, 180, 0.25), inset 0 0 15px rgba(255, 192, 203, 0.4);
+            border-radius: 28px;
+        }
+
+        /* Floating background items (Hearts, Bows, Kitties) */
+        .bg-floater {
+            position: fixed;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatDown linear infinite;
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(0.8);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Envelope Flip Animation */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+        
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: #ffb6c1;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope:active {
+            transform: scale(0.98);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            background: #ff8fa3;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 3;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .letter-content {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            right: 5%;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.6s ease-in-out, opacity 0.6s ease;
+            transform: translateY(0);
+            z-index: 2;
+            border: 2px dashed #ff8fa3;
+        }
+
+        .envelope.open .letter-content {
+            transform: translateY(-40px);
+            z-index: 4;
+        }
+
+        /* Cute pulse glow */
+        .pulse-pink {
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+            70% { box-shadow: 0 0 0 16px rgba(255, 105, 180, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
+
+        /* Continuous gentle wiggle for Hello Kitty Bows */
+        .kitty-wiggle {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff8fa3;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-between p-4 relative min-h-screen">
+
+    <!-- Container for dynamic floating Hello Kitty background elements -->
+    <div id="floater-container" class="pointer-events-none fixed inset-0 z-0"></div>
+
+    <!-- Header Section -->
+    <header class="w-full max-w-md flex justify-between items-center py-2 z-10">
+        <!-- Hello Kitty Badge -->
+        <div class="flex items-center gap-2 bg-white/90 border-2 border-pink-300 px-3 py-1.5 rounded-full shadow-md kitty-wiggle">
+            <!-- Inline SVG: Hello Kitty Red Bow -->
+            <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 40 C40 30, 20 25, 15 45 C10 65, 35 75, 50 55 C65 75, 90 65, 85 45 C80 25, 60 30, 50 40 Z" fill="#ff2e63" stroke="#cc0033" stroke-width="4"/>
+                <circle cx="50" cy="48" r="12" fill="#ff1493" stroke="#990033" stroke-width="3"/>
+                <circle cx="50" cy="48" r="4" fill="#ffffff"/>
+            </svg>
+            <span class="text-xs font-black text-pink-600 tracking-wide">عالم رهف & Hello Kitty 🎀</span>
+        </div>
+
+        <!-- Music Toggle Button -->
+        <button id="music-btn" onclick="toggleMusic()" class="bg-white/90 hover:bg-pink-100 text-pink-600 border-2 border-pink-300 px-3.5 py-1.5 rounded-full shadow-md text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95">
+            <i id="music-icon" class="fa-solid fa-music text-pink-500"></i>
+            <span id="music-label">الموسيقى</span>
+        </button>
+    </header>
+
+    <!-- Main Card Body -->
+    <main class="w-full max-w-md my-auto py-3 z-10 flex flex-col gap-4">
+
+        <!-- Main Banner Card -->
+        <div class="kitty-card p-5 text-center relative overflow-hidden">
+            
+            <!-- Hello Kitty Header Avatar & Bow Decor -->
+            <div class="relative w-32 h-32 mx-auto mb-2">
+                <!-- Outer Pink Decorative Circle -->
+                <div class="absolute inset-0 bg-pink-200/80 rounded-full animate-pulse"></div>
+                <!-- High Quality Official Hello Kitty Illustration PNG -->
+                 <img src="56.webp" 
+                     alt="Hello Kitty for Rahaf" 
+                     class="w-full h-full object-contain relative z-10 drop-shadow-md transition-transform duration-300 hover:scale-105"
+                     >
+            </div>
+
+            <!-- Title Header -->
+            <div class="inline-block bg-pink-100 px-4 py-1 rounded-full border border-pink-300 mb-2">
+                <span class="text-xs font-extrabold text-pink-600">إلى زوجتي الحبيبة ❤️</span>
+            </div>
+
+            <h1 class="text-3xl font-black text-pink-600 mb-1 leading-tight tracking-wide">
+                رهــــف الغاليــة ✨
+            </h1>
+            <p class="text-xs text-pink-500 font-bold mb-4">أجمل ملاك في حياتي بحب هالوكيتي 🎀</p>
+
+            <!-- Dedicated Love Letter -->
+            <div class="bg-pink-50/90 rounded-2xl p-4 text-right border-2 border-pink-200 text-gray-700 text-sm leading-relaxed shadow-inner mb-4 relative">
+                <!-- Floating Bow Sticker -->
+                <span class="absolute -top-3 -left-2 text-xl">🎀</span>
+                <span class="absolute -bottom-3 -right-2 text-xl">🌸</span>
+
+                <p class="font-bold text-pink-600 mb-2 text-base">زوجتي ونبض قلبي رهف،</p>
+                <p class="mb-2">
+                    كُنتِ ولا زلتِ أجمل ألقاب السعادة في أيامي. وجودكِ بقربي يحيل الدنيا إلى بستان ورد دائم، ويبعث الدفء في كل لحظة نعيشها معاً.
+                </p>
+                <p>
+                    أحبكِ بكل تفاصيلكِ، بضحكتكِ، ورقتكِ، وأتمنى من الله أن يديمكِ لي شريكة لعُمري ونوراً لقلبي دائماً وأبداً. 💖
+                </p>
+            </div>
+
+            <!-- Interactive Envelope Section -->
+            <div class="my-4">
+                <p class="text-xs font-bold text-pink-600 mb-2 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-envelope-open-text text-pink-500"></i> افتحي الظرف المفاجئ يا رهف! ✉️
+                </p>
+                <div id="envelope-box" onclick="toggleEnvelope()" class="envelope relative flex items-center justify-center overflow-hidden">
+                    <div class="envelope-flap"></div>
+                    <!-- Hello Kitty Bow Seal -->
+                    <div id="envelope-seal" class="absolute z-10 w-12 h-12 bg-white rounded-full border-2 border-pink-400 flex items-center justify-center shadow-md transition-opacity">
+                        <span class="text-xl">🎀</span>
+                    </div>
+                    <!-- Secret Note Inside -->
+                    <div class="letter-content text-center">
+                        <span class="text-xs font-bold text-pink-500 block mb-1">سر حبنا الأبدي 🗝️</span>
+                        <p id="secret-text" class="text-xs text-gray-700 font-semibold leading-relaxed">
+                            "أنتِ ليست مجرد زوجة، بل أنتِ كل أشياء قلبي الجكيلة.. رهف أحبك اليوم وغداً وللأبد!"
+                        </p>
+                    </div>
+                </div>
+                <button onclick="changeSecretMessage()" class="mt-2 text-[11px] text-pink-600 font-bold underline hover:text-pink-800 transition-colors">
+                    تغيير السر المعروض 🔄
+                </button>
+            </div>
+
+            <!-- Interactive Love Shower Button -->
+            <div class="mt-3">
+                <button onclick="triggerLoveShower(event)" 
+                        class="pulse-pink w-full bg-gradient-to-r from-pink-500 via-rose-400 to-pink-500 hover:from-pink-600 hover:to-rose-600 text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 text-sm border-2 border-white">
+                    <svg class="w-6 h-6 fill-current animate-bounce" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    اضغطي هنا لإمطار شاشتكِ بالقلوب وهالوكيتي! 🎀✨
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Hello Kitty Mini Gallery & Sweet Messages -->
+        <div class="kitty-card p-4 flex justify-around items-center text-center">
+            <div class="flex flex-col items-center">
+                <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-lg mb-1 shadow-sm border border-pink-200">
+                    💖
+                </div>
+                <span class="text-[11px] font-bold text-pink-600">قلبي معكِ</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-lg mb-1 shadow-sm border border-pink-200">
+                    🎀
+                </div>
+                <span class="text-[11px] font-bold text-pink-600">عشقي لرهف</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-lg mb-1 shadow-sm border border-pink-200">
+                    👑
+                </div>
+                <span class="text-[11px] font-bold text-pink-600">ملكة فؤادي</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-md text-center py-2 z-10">
+        <p class="text-xs text-pink-700 font-extrabold bg-white/80 backdrop-blur-md py-1.5 px-4 rounded-full inline-block border border-pink-200 shadow-sm">
+            صُنِعت خصيصاً وبكل الحب لزوجتي رهف ❤️ Hello Kitty World
+        </p>
+    </footer>
+
+    <script>
+        // Array of secret messages for Rahaf
+        const secretMessages = [
+            "أنتِ ليست مجرد زوجة، بل أنتِ كل أشيائي الجميلة.. رهف أحبك اليوم وغداً وللأبد! 💖",
+            "ابتسامتك يا رهف هي الصباح الحقيقي لقلبي، لا تحرميني منها أبداً. 🌸",
+            "لو جمعتُ كل ورود العالم وربطتها بفيونكة هالوكيتي، لن تفي بحق رقتكِ وجمالكِ! 🎀",
+            "أنا المحظوظ في هذا العالم لأن الله رزقني بزوجة حنونة ورائعة مثلكِ. 💕",
+            "كل ثانية معكِ يا رهف تساوي عمراً كاملاً من السعادة والراحة. ✨"
+        ];
+
+        let msgIndex = 0;
+
+        function changeSecretMessage() {
+            msgIndex = (msgIndex + 1) % secretMessages.length;
+            const secretText = document.getElementById('secret-text');
+            secretText.style.opacity = 0;
+            setTimeout(() => {
+                secretText.textContent = secretMessages[msgIndex];
+                secretText.style.opacity = 1;
+            }, 250);
+            playPopSound();
+        }
+
+        // Toggle Envelope
+        function toggleEnvelope() {
+            const env = document.getElementById('envelope-box');
+            env.classList.toggle('open');
+            playPopSound();
+        }
+
+        // Generate Floating Background Items (Hearts, Bows, Kitty SVG)
+        function createFloaters() {
+            const container = document.getElementById('floater-container');
+            const items = ['🎀', '💖', '🌸', '✨', '💕', '🐱'];
+
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'bg-floater';
+                
+                // Random item pick
+                const item = items[Math.floor(Math.random() * items.length)];
+                if (item === '🐱') {
+                    // Inject custom Hello Kitty Bow SVG
+                    el.innerHTML = `<svg class="w-7 h-7" viewBox="0 0 100 100"><path d="M50 40 C40 30, 20 25, 15 45 C10 65, 35 75, 50 55 C65 75, 90 65, 85 45 C80 25, 60 30, 50 40 Z" fill="#ff4d6d"/><circle cx="50" cy="48" r="10" fill="#ff758f"/></svg>`;
+                } else {
+                    el.textContent = item;
+                    el.style.fontSize = (Math.random() * 12 + 18) + 'px';
+                }
+
+                el.style.left = Math.random() * 95 + 'vw';
+                el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+
+                container.appendChild(el);
+
+                setTimeout(() => {
+                    el.remove();
+                }, 7000);
+            }, 450);
+        }
+
+        // Love Shower Particles Effect
+        function triggerLoveShower(e) {
+            playMelodyChime();
+
+            const rect = e.target.getBoundingClientRect();
+            const startX = e.clientX || (rect.left + rect.width / 2);
+            const startY = e.clientY || (rect.top + rect.height / 2);
+
+            const emojis = ['🎀', '💖', '🌸', '✨', '💕', '👑', '🐱'];
+
+            for (let i = 0; i < 16; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'fixed';
+                p.style.left = startX + 'px';
+                p.style.top = startY + 'px';
+                p.style.pointerEvents = 'none';
+                p.style.zIndex = '9999';
+                p.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                p.style.transition = 'transform 0.9s cubic-bezier(0.1, 1, 0.1, 1), opacity 0.9s ease';
+
+                if (i % 2 === 0) {
+                    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                } else {
+                    p.innerHTML = `<svg class="w-6 h-6" viewBox="0 0 100 100"><path d="M50 40 C40 30, 20 25, 15 45 C10 65, 35 75, 50 55 C65 75, 90 65, 85 45 C80 25, 60 30, 50 40 Z" fill="#ff2e63"/><circle cx="50" cy="48" r="10" fill="#ffffff"/></svg>`;
+                }
+
+                document.body.appendChild(p);
+
+                const angle = (i / 16) * 360;
+                const distance = 80 + Math.random() * 90;
+                const tx = Math.cos(angle * Math.PI / 180) * distance;
+                const ty = Math.sin(angle * Math.PI / 180) * distance - 40; // slight upward force
+
+                setTimeout(() => {
+                    p.style.transform = `translate(${tx}px, ${ty}px) scale(1.4) rotate(${Math.random() * 90 - 45}deg)`;
+                    p.style.opacity = '0';
+                }, 20);
+
+                setTimeout(() => {
+                    p.remove();
+                }, 950);
+            }
+        }
+
+        // Web Audio API Synthesizer for Touch Sound Effects & Music Loop
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let musicTimer = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playPopSound() {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        function playMelodyChime() {
+            try {
+                initAudio();
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.35);
+                    }, idx * 70);
+                });
+            } catch(e) {}
+        }
+
+        function toggleMusic() {
+            initAudio();
+            const icon = document.getElementById('music-icon');
+            const label = document.getElementById('music-label');
+
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                icon.className = "fa-solid fa-volume-high text-pink-600 animate-spin";
+                label.textContent = "إيقاف";
+
+                // Cute lullaby melodic sequence
+                const melody = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50];
+                let step = 0;
+
+                musicTimer = setInterval(() => {
+                    if (!isMusicPlaying) return;
+                    try {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(melody[step], audioCtx.currentTime);
+
+                        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.7);
+
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.7);
+
+                        step = (step + 1) % melody.length;
+                    } catch(e) {}
+                }, 600);
+
+            } else {
+                isMusicPlaying = false;
+                icon.className = "fa-solid fa-music text-pink-500";
+                label.textContent = "الموسيقى";
+                if (musicTimer) clearInterval(musicTimer);
+            }
+        }
+
+        // Initialize background animation on window load
+        window.onload = function() {
+            createFloaters();
+        };
+    </script>
+</body>
+</html>
